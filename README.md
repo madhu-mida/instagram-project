@@ -9,6 +9,9 @@
 - Css
 - Bootstrap
 - JavaScript
+- express
+- mongoose
+- mongoDB
 - jQuery
 - Google Fonts
 - FontAwesome
