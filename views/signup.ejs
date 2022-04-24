@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("partials/head.ejs") %>
+
+    <body>
+        <div class="wrapper-signup">
+            <div class="panel sign-up-page">
+                <img id="logo"
+                    src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png"
+                    alt="logo">
+                <div class="sign-up-text">
+                    <p>Sign up to see photos and videos from your friends.</p>
+                </div>
+                <form id="sign-up-form" action="">
+                    <input class="input-box" type="email" name="email" placeholder="Email" required>
+                    <input class="input-box" type="text" name="name" placeholder="Full Name" required>
+                    <input class="input-box" type="text" name="username" placeholder="Username" required>
+                    <input class="input-box" type="password" name="password" placeholder="Password" required>
+                    <input class="sign-up-button" type="submit" value="Sign Up">
+                </form>
+                <div class="sign-up-terms">
+                    <p>By signing up, you agree to our Terms, Data Policy and Cookie Policy.</p>
+                </div>
+            </div>
+            <div class="panel sign-up-login">
+                <p>Have an account?</p>
+                <a href="#">Login</a>
+            </div>
+        </div>
+
+    </body>
+
+</html>
