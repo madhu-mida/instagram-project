@@ -14,15 +14,15 @@
                     <img id="logo"
                         src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png"
                         alt="logo">
-                    <form id="form-login">
-                        <input class="input-box" type="text" name="username" placeholder="Email" required>
+                    <form id="form-login" action="/user/login" method="post">
+                        <input class="input-box" type="text" name="email" placeholder="Email" required>
                         <input class="input-box" type="password" name="password" placeholder="Password" required>
                         <input class="login-button" type="submit" value="Login">
                     </form>
                 </div>
                 <div class="panel sign-up">
                     <p>Don't have an account?</p>
-                    <a href="/signup">Sign Up</a>
+                    <a href="/user/signup">Sign Up</a>
                 </div>
             </div>
         </section>
