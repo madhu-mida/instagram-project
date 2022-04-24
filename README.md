@@ -35,7 +35,7 @@
 
 ##### Signup Page
 
-![Screenshot](signup.png)
+![Screenshot](Signup.png)
 
 ##### Profile Page
 
