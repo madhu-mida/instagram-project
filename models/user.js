@@ -14,6 +14,7 @@ const userSchema = new Schema({
     },
     fullname: {
         type: String,
+        required: true,
         minlength: 5,
         maxlength: 50
     },
@@ -29,6 +30,24 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
         maxlength: 255
+    },
+    savedPost: {
+        type: Array
+    },
+    bio: {
+        type: String,
+        minlength: 5,
+        maxlength: 500
+    },
+    image: {
+        data: Buffer,
+        contentType: String
+    },
+    gender: {
+        type: String
+    },
+    likedPost: {
+        type: Array
     }
 })
 // User Model and exporting model

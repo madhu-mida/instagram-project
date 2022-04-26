@@ -8,6 +8,9 @@ require("./config/db");
 const morgan = require("morgan");
 const MongoStore = require("connect-mongo");
 
+const User = require("./models/user")
+const Post = require("./models/post")
+
 const PORT = process.env.PORT || 3000;
 
 app.use(methodOverride("_method"));
@@ -25,20 +28,33 @@ app.use(
     })
 )
 
+
 const UserRouter = require("./controllers/user");
 app.use("/user", UserRouter)
 
+const PostRouter = require("./controllers/post");
+app.use("/post", PostRouter)
+
 app.get("/profile", (req, res) => {
-    res.render("profile.ejs")
+    console.log(req.session.user)
+    const userId = req.session.userId;
+    console.log("IIII", userId)
+    console.log(typeof userId)
+    Post.find({ userId }, (err, allPost) => {
+        console.log("ALLPOST", allPost)
+        if (err) {
+            console.log(err)
+        }
+        res.render("profile.ejs", { allpost: allPost, user: req.session.user })
+    })
+
+
+
 })
 
-app.get("/edit", (req, res) => {
-    res.render("editprofile.ejs")
-})
 
-app.get("/createpost", (req, res) => {
-    res.render("createpost.ejs")
-})
+
+
 
 app.get("/editpost", (req, res) => {
     res.render("editpost.ejs")

@@ -175,3 +175,57 @@
 #form-createpost {
     margin-top: 30px;
 }
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-header {
+    box-sizing: border-box;
+    border-top: 1px solid #8a8a8a;
+    margin: auto ;
+    margin-top: 50px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile-content-header-list {
+    list-style-type: none;
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    gap: 100px;
+}
+
+.post-card-img {
+    height: 320px;
+    width: 300px;
+}
+
+.post-card {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.post-saved {
+    justify-content: center;
+}
+
+
+.fa-heart-o {
+    color: red;
+    cursor: pointer;
+  }
+  
+  .fa-heart {
+    color: red;
+    cursor: pointer;
+  }
+
+  
+.created-at-post {
+    font-size: 10px;
+    font-style: italic;
+}

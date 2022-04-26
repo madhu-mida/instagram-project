@@ -4,33 +4,41 @@
 <%- include("partials/head.ejs") %>
 
     <body>
-        <div class="container mt-3">
-            <h2>Edit Profile</h2>
-            <form action="/action_page.php">
-                <div class="mb-3">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" value="" name="name">
-                </div>
-                <div class="mb-3">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" value="" name="username">
-                </div>
-                <div class="mb-3">
-                    <label for="bio">Bio</label>
-                    <input type="text" class="form-control" value="" name="bio">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" value="" name="email">
-                </div>
-                <div class="mb-3">
-                    <label for="gender">Gender</label>
-                    <input type="text" class="form-control" value="" name="gender">
-                </div>
+        <%- include("partials/headercontent.ejs") %>
+            <div class="container mt-3">
+                <h2>Edit Profile</h2>
+                <form action="/action_page.php">
+                    <div class="mb-3">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" value="<%=user.fullname%>" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" value="<%=user.username%>" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bio">Bio</label>
+                        <input type="text" class="form-control" value="<%=user.bio%>" name="bio">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" value="<%=user.email%>" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender">Gender</label>
+                        <input type="text" class="form-control" value="<%=user.gender%>" name="gender">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image">Select Photo from Computer</label>
+                        <input type="file" id="myFile" class="form-control" name="image" value="<%=user.image%>">
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <form action="/profile">
+                    <button type="submit" class="btn btn-primary">Cancel</button>
+                </form>
+            </div>
     </body>
 
 </html>

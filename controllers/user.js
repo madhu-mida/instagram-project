@@ -1,6 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const Post = require("../models/post")
+
 
 const router = express.Router();
 
@@ -38,8 +40,11 @@ router.post("/login", async (req, res) => {
 
         req.session.loggedIn = true;
         req.session.email = email;
+        req.session.userId = user._id;
+        req.session.user = user;
 
-        res.redirect("/profile")
+        res.redirect("/user/home")
+        // res.render("profile.ejs", { loginDetails: user })
 
     })
 })
@@ -48,6 +53,92 @@ router.get("/logout", (req, res) => {
     req.session.destroy((err) => {
         res.redirect("/user/login")
     })
+})
+
+router.get("/edit", (req, res) => {
+    res.render("editprofile.ejs", { user: req.session.user })
+})
+
+router.get("/home", (req, res) => {
+    const userId = req.session.userId;
+    console.log(req.session.user.likedPost)
+
+    Post.find({ 'userId': { $ne: userId } }, (err, allPost) => {
+        console.log("ALLPOST", allPost)
+        if (err) {
+            console.log(err)
+        }
+        res.render("home.ejs", { allpost: allPost, user: req.session.user })
+    })
+
+})
+
+router.post("/comment", async (req, res) => {
+    const newComment = {
+        user: {
+            fullname: req.session.user.fullname,
+            _id: req.session.user._id,
+            username: req.session.user.username
+        },
+        comment: req.body.comment,
+        createdAt: new Date()
+    }
+    console.log(req.body)
+    let result = await Post.findOneAndUpdate(
+        { _id: req.body.postid },
+        { $push: { comment: newComment } },
+        {
+            returnOriginal: false
+        }
+    );
+    console.log("result", result)
+    res.send(result)
+
+})
+
+router.post("/like", async (req, res) => {
+    let likeIncCount = 1;
+    if (req.body.shouldDislike && req.body.shouldDislike === 'true') {
+        likeIncCount = -1
+    }
+    console.log("req.body :: ", req.body);
+    let result = await Post.findOneAndUpdate(
+        { _id: req.body.postid },
+        { $inc: { like: likeIncCount } },
+        {
+            returnOriginal: false
+        }
+    );
+    if (req.body.shouldDislike && req.body.shouldDislike === 'true') {
+
+        let userResult = await User.findOneAndUpdate(
+            { _id: req.session.userId },
+            { $pull: { likedPost: req.body.postid } },
+            {
+                returnOriginal: false
+            }
+        )
+        let removeIndex = req.session.user.likedPost.indexOf(req.body.postid);
+        req.session.user.likedPost.splice(removeIndex, 1);
+
+    } else {
+        let userResult = await User.findOneAndUpdate(
+            { _id: req.session.userId },
+            { $push: { likedPost: req.body.postid } },
+            {
+                returnOriginal: false
+            }
+        )
+
+        req.session.user.likedPost.push(req.body.postid)
+    }
+
+    console.log("result", result)
+    res.send(result)
+})
+
+router.get("/show/:id", (req, res) => {
+    res.render("showpost.ejs")
 })
 
 module.exports = router;

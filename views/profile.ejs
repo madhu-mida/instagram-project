@@ -4,68 +4,140 @@
 
     <body id="body-profile">
 
-        <nav class="navbar navbar-expand-sm bg-light">
-            <div class="container-fluid">
-                <img id="logo-profile"
-                    src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png"
-                    alt="logo">
-                <div class="nav-search">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="text" placeholder="Search">
-                        <button class="btn btn-primary" type="button">Search</button>
-                    </form>
+        <%- include("partials/headercontent.ejs") %>
+
+            <div class="profile-pic-body">
+                <div id="profile-pic">
+                    <img id="profile-pic-logo" src="https://i.imgur.com/GrY4ykS.jpeg" alt="">
                 </div>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Create Post</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Profile
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/edit">Edit Profile</a>
-                            <a class="dropdown-item" href="/user/logout">Logout</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="profile-pic-body">
-            <div id="profile-pic">
-                <img id="profile-pic-logo" src="https://i.imgur.com/GrY4ykS.jpeg" alt="">
-            </div>
-            <div class="profile-details">
-                <div class="profile-name-edit">
-                    <h3>username</h3>
-                    <form action="/edit" method="get">
-                        <!-- <button class="btn btn-light" type="button" >Edit Profile</button> -->
-                        <input class="btn btn-light" type="submit" value="Edit Profile">
-                    </form>
+                <div class="profile-details">
+                    <div class="profile-name-edit">
+                        <h3>
+                            <%=user.username%>
+                        </h3>
+                        <form action="user/edit" method="get">
+                            <!-- <button class="btn btn-light" type="button" >Edit Profile</button> -->
+                            <input class="btn btn-light" type="submit" value="Edit Profile">
+                        </form>
+                    </div>
+                    <p>
+                        <%=allpost.length%> posts
+                    </p>
+                    <h6>
+                        <%=user.fullname%>
+                    </h6>
+                    <p>
+                        <%=user.bio%>
+                    </p>
                 </div>
-                <p>posts</p>
-                <h6>Madhu</h6>
-                <p>bio</p>
             </div>
-            <div class="post-content">
-                <div class="container">
-                    <div class="rows row-cols-3">
-                        <div class="col">
-                            <div class="card border-dark index-card">
-                                <div class="card-body">
+            <div class="profile-content">
+                <div class="content-header">
+
+                    <!-- <ul id="profile-content-header-list">
+                    <li>FEED</li>
+                    <li>POSTS</li>
+                    <li>SAVED</li>
+                </ul> -->
+                    <ul class="nav nav-pills mb-3 mt-3 post-saved" id="pills-tab profile-content-header-list"
+                        role="tablist">
+
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-posts-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                                aria-selected="false">POSTS</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-saved-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
+                                aria-selected="false">SAVED</button>
+                        </li>
+                    </ul>
+
+                </div>
 
 
+                <div class="tab-content" id="pills-tabContent">
 
+                    <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
+                        aria-labelledby="pills-posts-tab">
+
+                        <div class="post-content">
+                            <div class="container profile-container">
+                                <div class="row row-cols-3 profile-row">
+                                    <% allpost.forEach(post=> { %>
+                                        <div class="col">
+                                            <div class="card border-dark index-card post-card">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#myModal">
+                                                    <img class=" card-img-top post-card-img"
+                                                        src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                                                        style="width:100%">
+                                                    <h5>
+                                                        <%=post.caption%>
+                                                    </h5>
+                                                </a>
+
+
+                                                <!-- The Modal -->
+                                                <div class="modal fade" id="myModal">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title"><img
+                                                                        class=" card-img-top post-card-img"
+                                                                        src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                                                                        style="width:100%"></h4>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                            </div>
+
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <p>
+                                                                    <%= post.caption %>
+                                                                </p>
+                                                                <h5>Likes</h5>
+                                                                <h5>Comments</h5>
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="card-body post-card-body">
+                                                <h5>
+                                                    <%=post.caption%><br />
+                                                        <span id=heart>
+                                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                        </span>
+                                                        <i class="fas fa-save"></i>
+                                                </h5>
+
+                                            </div> -->
+                                            </div>
+                                        </div>
+                                        <% }) %>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-saved-tab">
+                        qewre5r67t8yiuo
+                    </div>
                 </div>
+
+
             </div>
-        </div>
+
+
     </body>
 
 </html>

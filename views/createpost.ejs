@@ -4,26 +4,26 @@
 <%- include("partials/head.ejs") %>
 
     <body>
-        <div class="container mt-3">
-            <h2>Create Your Post</h2>
-            <form id="form-createpost" action="">
-                <!-- <div class="mb-3">
-                    <label for="image">Select Photo from Computer</label>
-                    <input type="image" class="form-control" name="image">
-                </div> -->
-                <div class="mb-3">
-                    <label for="image">Select Photo from Computer</label>
-                    <input type="file" id="myFile" class="form-control" name="image">
-                </div>
+        <%- include("partials/headercontent.ejs") %>
+            <div class="container mt-3">
+                <h2>Create Your Post</h2>
+                <form id="form-createpost" enctype="multipart/form-data" action="/post/createpost" method="post">
+                    <div class="mb-3">
+                        <label for="image">Select Photo from Computer</label>
+                        <input type="file" id="myFile" class="form-control" name="image">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="caption">Caption</label>
-                    <input type="text" class="form-control" name="caption">
-                </div>
+                    <div class="mb-3">
+                        <label for="caption">Caption</label>
+                        <input type="text" class="form-control" name="caption">
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Create Post</button>
-            </form>
-        </div>
+                    <button type="submit" class="btn btn-primary">Create Post</button>
+                </form>
+                <form action="/profile">
+                    <input type="submit" class="btn btn-primary" value="Cancel">
+                </form>
+            </div>
     </body>
 
 </html>
