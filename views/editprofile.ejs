@@ -7,7 +7,7 @@
         <%- include("partials/headercontent.ejs") %>
             <div class="container mt-3 edit-container">
                 <h2>Edit Profile</h2>
-                <form action="/user/edit?_method=PUT" method="post">
+                <form action="/user/edit?_method=PUT" enctype="multipart/form-data" method="post">
                     <div class="mb-3">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" value="<%=user.fullname%>" name="name">
@@ -29,8 +29,8 @@
                         <input type="text" class="form-control" value="<%=user.gender%>" name="gender">
                     </div>
                     <div class="mb-3">
-                        <label for="image">Select Photo from Computer</label>
-                        <input type="file" id="myFile" class="form-control" name="image" value="<%=user.image%>">
+                        <label for="profileimage">Select Photo from Computer</label>
+                        <input type="file" id="myFile" class="form-control" name="profileimage">
                     </div>
 
                     <button type="submit" class="btn btn-primary button-custom">Update</button>

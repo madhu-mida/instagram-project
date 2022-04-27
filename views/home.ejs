@@ -13,58 +13,82 @@
                         <% allpost.forEach((post,index)=> { %>
                             <div class="col">
                                 <div class="card border-dark index-card post-card">
-                                    <img class="card-img-top post-card-img"
-                                        src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
-                                        style="width:100%">
-                                    <div class="card-body post-card-body">
-                                        <h5>
-                                            <%=post.caption%><br />
-                                                <span id=heart>
-                                                    <a class="like-heart <%= user.likedPost.includes(post._id.toString()) ? `isLiked` : `` %>"
-                                                        value="<%=post._id%>">
+                                    <% if(post.image && post.image.data){ %>
+                                        <img class=" card-img-top post-card-img" src="data:image/<%=post.image.contentType%>;base64,
+                                        <%=post.image.data.toString('base64')%>" style="width:100%">
+                                        <% } else { %>
+                                            <img class=" card-img-top post-card-img"
+                                                src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                                                style="width:100%">
+                                            <% } %>
+                                                <div class="card-body post-card-body">
+                                                    <h5>
+
+                                                        <span id=heart>
+                                                            <a class="like-heart <%= user.likedPost.includes(post._id.toString()) ? `isLiked` : `` %>"
+                                                                value="<%=post._id%>">
 
 
-                                                        <% if(user.likedPost.includes(post._id.toString())){ %>
-                                                            <i class="fa fa-heart like-heart-button"
-                                                                aria-hidden="true"></i>
-                                                            <% } else { %>
-                                                                <i class="fa fa-heart-o like-heart-button"
-                                                                    aria-hidden="true"></i>
-                                                                <% } %>
-                                                    </a>
+                                                                <% if(user.likedPost.includes(post._id.toString())){ %>
+                                                                    <i class="fa fa-heart like-heart-button"
+                                                                        aria-hidden="true"></i>
+                                                                    <% } else { %>
+                                                                        <i class="fa fa-heart-o like-heart-button"
+                                                                            aria-hidden="true"></i>
+                                                                        <% } %>
+                                                            </a>
 
-                                                </span>
-                                                <!-- <i class="fas fa-save"></i> -->
-                                        </h5>
-                                        <div class="all-comments" id="<%= `comm-${post._id}` %>">
-                                            <% (post.comment).forEach(element=> { %>
-                                                <div class="each-comment">
-                                                    <h6>
-                                                        <%=element.user.username%>:<p>
-                                                                <%= element.comment%>
-                                                            </p>
-                                                    </h6>
+                                                        </span>
 
+
+                                                        <span id="save">
+                                                            <a class="save-bookmark <%= user.savedPost.includes(post._id.toString()) ? `isSaved` : `` %>"
+                                                                value="<%=post._id%>">
+
+
+                                                                <% if(user.savedPost.includes(post._id.toString())){ %>
+                                                                    <i class="fa fa-solid fa-bookmark save-bookmark-button"
+                                                                        aria-hidden="true"></i>
+                                                                    <% } else { %>
+                                                                        <i class="fa fa-regular fa-bookmark save-bookmark-button"
+                                                                            aria-hidden="true"></i>
+                                                                        <% } %>
+                                                            </a>
+
+                                                        </span> <br />
+
+                                                        <%=post.caption%>
+                                                            <!-- <i class="fas fa-save"></i> -->
+                                                    </h5>
+                                                    <div class="all-comments" id="<%= `comm-${post._id}` %>">
+                                                        <% (post.comment).forEach(element=> { %>
+                                                            <div class="each-comment">
+                                                                <h6>
+                                                                    <%=element.user.username%>:<p>
+                                                                            <%= element.comment%>
+                                                                        </p>
+                                                                </h6>
+
+                                                            </div>
+                                                            <% }) %>
+
+                                                    </div>
+                                                    <div class="created-at-post">
+                                                        <h7 class="created-at-post">
+                                                            <%= post.createdAt.toDateString() %>
+                                                        </h7>
+                                                    </div>
+                                                    <form action="/user/comment" class="send-form" method="post">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control comment-box"
+                                                                placeholder="Comment" aria-label="Comment"
+                                                                aria-describedby="button-addon2" name="comment">
+                                                            <input type="hidden" name="postid" value="<%=post._id%>">
+                                                            <button class="btn btn-outline-secondary send-button"
+                                                                type="submit" id="button-addon2">Send</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <% }) %>
-
-                                        </div>
-                                        <div class="created-at-post">
-                                            <h7 class="created-at-post">
-                                                <%= post.createdAt.toDateString() %>
-                                            </h7>
-                                        </div>
-                                        <form action="/user/comment" class="send-form" method="post">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control comment-box"
-                                                    placeholder="Comment" aria-label="Comment"
-                                                    aria-describedby="button-addon2" name="comment">
-                                                <input type="hidden" name="postid" value="<%=post._id%>">
-                                                <button class="btn btn-outline-secondary send-button" type="submit"
-                                                    id="button-addon2">Send</button>
-                                            </div>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                             <% }) %>

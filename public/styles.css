@@ -288,6 +288,14 @@
     cursor: pointer;
   }
 
+  .save-bookmark-button {
+    color: red;
+    cursor: pointer;
+  }
+
+#save {
+    float: right;
+}
   
 .created-at-post {
     font-size: 10px;

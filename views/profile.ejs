@@ -8,7 +8,12 @@
 
             <div class="profile-pic-body">
                 <div id="profile-pic">
-                    <img id="profile-pic-logo" src="https://i.imgur.com/GrY4ykS.jpeg" alt="">
+                    <% if(user.image && user.image.data){ %>
+                        <img id="profile-pic-logo" src="data:image/<%=user.image.contentType%>;base64,
+                        <%=Buffer.from(user.image.data.data).toString('base64')%>" alt="">
+                        <% } else { %>
+                            <img id="profile-pic-logo" src="https://i.imgur.com/GrY4ykS.jpeg" alt="">
+                            <% } %>
                 </div>
                 <div class="profile-details">
                     <div class="profile-name-edit">

@@ -2,9 +2,22 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const Post = require("../models/post")
-
+var fs = require('fs');
 
 const router = express.Router();
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '/tmp')
+    },
+    filename: (req, file, cb) => {
+        console.log(file);
+        cb(null, file.originalname)
+    }
+});
+
+var upload = multer({ storage: storage });
 
 router.get("/signup", (req, res) => {
     res.render("signup.ejs")
@@ -37,7 +50,7 @@ router.post("/login", async (req, res) => {
         if (!passwordMatches) {
             return res.send("Incorrect Password");
         }
-
+        console.log("user :: ", user);
         req.session.loggedIn = true;
         req.session.email = email;
         req.session.userId = user._id;
@@ -60,15 +73,23 @@ router.get("/edit", (req, res) => {
     res.render("editprofile.ejs", { user: req.session.user })
 })
 
-router.put("/edit", async (req, res) => {
+router.put("/edit", upload.single("profileimage"), async (req, res) => {
     const userId = req.session.userId;
+    console.log("req.file :: ", req.file);
+    let profileImageData = fs.readFileSync('/tmp/' + req.file.filename);
+    let profileContentType = req.file.mimetype;
+    let profileImage = {
+        data: profileImageData,
+        contentType: profileContentType
+    }
     let result = await User.findOneAndUpdate(
         { _id: userId },
         {
             $set: {
                 name: req.body.fullname,
                 bio: req.body.bio,
-                gender: req.body.gender
+                gender: req.body.gender,
+                image: profileImage
             }
         },
         { new: true }
@@ -80,10 +101,9 @@ router.put("/edit", async (req, res) => {
 
 router.get("/home", (req, res) => {
     const userId = req.session.userId;
-    console.log(req.session.user.likedPost)
+    console.log(req.session.user)
 
     Post.find({ 'userId': { $ne: userId } }, (err, allPost) => {
-        console.log("ALLPOST", allPost)
         if (err) {
             console.log(err)
         }
@@ -155,6 +175,49 @@ router.post("/like", async (req, res) => {
     console.log("result", result)
     res.send(result)
 })
+
+router.post("/save", async (req, res) => {
+    let saveIncCount = 1;
+    if (req.body.shouldDisSave && req.body.shouldDisSave === 'true') {
+        saveIncCount = -1
+    }
+    console.log("req.body :: ", req.body);
+    let result = await Post.findOneAndUpdate(
+        { _id: req.body.postid },
+        { $inc: { save: saveIncCount } },
+        {
+            returnOriginal: false
+        }
+    );
+    if (req.body.shouldDisSave && req.body.shouldDisSave === 'true') {
+
+        let userResult = await User.findOneAndUpdate(
+            { _id: req.session.userId },
+            { $pull: { savedPost: req.body.postid } },
+            {
+                returnOriginal: false
+            }
+        )
+        let removeIndex = req.session.user.savedPost.indexOf(req.body.postid);
+        req.session.user.savedPost.splice(removeIndex, 1);
+
+    } else {
+        let userResult = await User.findOneAndUpdate(
+            { _id: req.session.userId },
+            { $push: { savedPost: req.body.postid } },
+            {
+                returnOriginal: false
+            }
+        )
+
+        req.session.user.savedPost.push(req.body.postid)
+    }
+
+    console.log("result", result)
+    res.send(result)
+})
+
+
 
 router.get("/show/:id", (req, res) => {
     res.render("showpost.ejs")

@@ -67,5 +67,38 @@ $(document).ready(function () {
         });
     });
 
+    let $saveButton = $(".save-bookmark");
+
+
+    $saveButton.on("click", function (event) {
+        event.preventDefault(); // Prevent the form from submitting via the browser
+
+        var save = $(this).attr('value');
+        let shouldDisSave = $(this).attr('class').includes('isSaved')
+        console.log('shouldDisSave :: ', shouldDisSave);
+        let selfEl = $(this)
+        $.ajax({
+            type: 'post',
+            url: '/user/save',
+            data: { postid: save, shouldDisSave }
+        }).done(function (data) {
+            // Optionally alert the user of success here...
+            console.log(data);
+            if (data && data._id) {
+                if (shouldDisSave) {
+                    $(selfEl).html(`<i class="fa fa-regular fa-bookmark save-bookmark-button"
+                    aria-hidden="true"></i>`);
+                } else {
+                    $(selfEl).html(`<i class="fa fa-solid fa-bookmark save-bookmark-button"
+                    aria-hidden="true"></i>`);
+                }
+                $(selfEl).toggleClass("isSaved")
+            }
+
+        }).fail(function (data) {
+            // Optionally alert the user of an error here...
+        });
+    });
+
 
 });

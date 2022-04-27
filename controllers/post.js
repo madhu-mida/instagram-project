@@ -31,11 +31,12 @@ router.post("/createpost", upload.single("image"), async (req, res) => {
         userId: req.session.userId,
         caption: req.body.caption,
         like: 0,
+        save: 0,
         comment: [],
         createdAt: new Date(),
         image: {}
     }
-    var imgData = fs.readFileSync(path.join('/tmp/' + req.file.filename));
+    //var imgData = fs.readFileSync(path.join('/tmp/' + req.file.filename));
     //console.log("imgData base64 :: ", base64data);
     console.log("req.file.filename :: ", req.file.filename, req.body.caption);
     newPost.image.data = fs.readFileSync(path.join('/tmp/' + req.file.filename));
