@@ -60,6 +60,6 @@ app.get("/editpost", (req, res) => {
     res.render("editpost.ejs")
 })
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log(`You are Listening to PORT: ${PORT}`);
 })
