@@ -39,16 +39,18 @@ app.get("/", (req, res) => {
     res.redirect("/user/login")
 })
 
-app.get("/profile", (req, res) => {
+app.get("/profile", async (req, res) => {
     console.log(req.session.user)
     const userId = req.session.userId;
     console.log("IIII", userId)
     console.log(typeof userId)
+    const records = await Post.find({ '_id': { $in: req.session.user.savedPost } });
+    console.log(records)
     Post.find({ userId }, (err, allPost) => {
         if (err) {
             console.log(err)
         }
-        res.render("profile.ejs", { allpost: allPost, user: req.session.user })
+        res.render("profile.ejs", { allpost: allPost, user: req.session.user, savedPost: records })
     })
 
 

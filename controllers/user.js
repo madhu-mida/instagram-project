@@ -76,25 +76,39 @@ router.get("/edit", (req, res) => {
 router.put("/edit", upload.single("profileimage"), async (req, res) => {
     const userId = req.session.userId;
     console.log("req.file :: ", req.file);
-    let profileImageData = fs.readFileSync('/tmp/' + req.file.filename);
-    let profileContentType = req.file.mimetype;
-    let profileImage = {
-        data: profileImageData,
-        contentType: profileContentType
+    if (req.file) {
+        let profileImageData = fs.readFileSync('/tmp/' + req.file.filename);
+        let profileContentType = req.file.mimetype;
+        let profileImage = {
+            data: profileImageData,
+            contentType: profileContentType
+        }
+        let result = await User.findOneAndUpdate(
+            { _id: userId },
+            {
+                $set: {
+                    name: req.body.fullname,
+                    bio: req.body.bio,
+                    gender: req.body.gender,
+                    image: profileImage
+                }
+            },
+            { new: true }
+        )
+    } else {
+        let result = await User.findOneAndUpdate(
+            { _id: userId },
+            {
+                $set: {
+                    name: req.body.fullname,
+                    bio: req.body.bio,
+                    gender: req.body.gender
+                }
+            },
+            { new: true }
+        )
     }
-    let result = await User.findOneAndUpdate(
-        { _id: userId },
-        {
-            $set: {
-                name: req.body.fullname,
-                bio: req.body.bio,
-                gender: req.body.gender,
-                image: profileImage
-            }
-        },
-        { new: true }
-    )
-    console.log("Result", result)
+    // console.log("Result", result)
     res.redirect("/profile")
 })
 
@@ -221,6 +235,10 @@ router.post("/save", async (req, res) => {
 
 router.get("/show/:id", (req, res) => {
     res.render("showpost.ejs")
+})
+
+router.get("/savedPost", async (req, res) => {
+
 })
 
 module.exports = router;

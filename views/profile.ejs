@@ -163,9 +163,103 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-saved-tab">
-                        qewre5r67t8yiuo
+                        <div class="post-content">
+                            <div class="container profile-container">
+                                <div class="row m-0 row-cols-3 profile-row">
+                                    <% savedPost.forEach(post=> { %>
+                                        <div class="col p-0">
+                                            <div class="card border-secondary rounded-0 index-card post-card">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="<%= `#modal-${post._id}` %>">
+                                                    <% if(post.image && post.image.data){ %>
+                                                        <img class=" card-img-top post-card-img" src="data:image/<%=post.image.contentType%>;base64,
+                                                        <%=post.image.data.toString('base64')%>" style="width:100%">
+                                                        <% } else { %>
+                                                            <img class=" card-img-top post-card-img"
+                                                                src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                                                                style="width:100%">
+                                                            <% } %>
+
+                                                                <div class="card-footer">
+                                                                    <%=post.caption%>
+
+                                                                </div>
+
+                                                </a>
+
+
+                                                <!-- The Modal -->
+                                                <div class="modal fade " id="<%= `modal-${post._id}` %>">
+                                                    <div class="modal-dialog  modal-dialog-centered modal-lg">
+                                                        <div class="modal-content">
+
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title modal-image-size"><img
+                                                                        class=" card-img-top post-card-img"
+                                                                        src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                                                                        style="width:100%"></h4>
+                                                                <!-- <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"></button> -->
+                                                            </div>
+
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <p>
+                                                                    <%= post.caption %>
+                                                                </p>
+                                                                <h5>Likes: <%= post.like %>
+                                                                </h5>
+                                                                <div class="all-comments">
+                                                                    <% (post.comment).forEach(element=> { %>
+                                                                        <div class="each-comment">
+                                                                            <h6>
+                                                                                <%=element.user.username%>:<p>
+                                                                                        <%= element.comment%>
+                                                                                    </p>
+                                                                            </h6>
+
+                                                                        </div>
+                                                                        <% }) %>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <form action="/post/delete?_method=DELETE"
+                                                                    method="post">
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger">Delete</button>
+                                                                </form>
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="card-body post-card-body">
+                                                <h5>
+                                                    <%=post.caption%><br />
+                                                        <span id=heart>
+                                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                        </span>
+                                                        <i class="fas fa-save"></i>
+                                                </h5>
+
+                                            </div> -->
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
 
             </div>

@@ -67,8 +67,7 @@
 }
 
 #body-home {
-    background: url(https://images.pexels.com/photos/4287012/pexels-photo-4287012.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
-
+    background: url(https://images.pexels.com/photos/3866851/pexels-photo-3866851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
 
     ) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -243,6 +242,10 @@
 .profile-content {
     display: flex;
     flex-direction: column;
+}
+
+.feed-container {
+    width: 50%;
 }
 
 .content-header {
