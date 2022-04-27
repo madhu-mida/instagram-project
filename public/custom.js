@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     let $sendForm = $(".send-form");
 
     $sendForm.submit(function (event) {

@@ -217,7 +217,7 @@
     display: flex;
     gap:50px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 100px;
 }
 
 #logo-profile {
@@ -356,3 +356,14 @@
     display: flex;
     gap: 18px
 }
+
+.sticky {
+    position: fixed;
+    top: 0;
+    /* width: 100%; */
+    width: 100%;
+  }
+
+  .sticky + .content {
+    padding-top: 60px;
+  }

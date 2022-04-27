@@ -96,6 +96,7 @@ router.put("/edit", upload.single("profileimage"), async (req, res) => {
             {
                 $set: {
                     fullname: req.body.name,
+                    username: req.body.username,
                     bio: req.body.bio,
                     gender: req.body.gender,
                     image: profileImage
@@ -113,6 +114,7 @@ router.put("/edit", upload.single("profileimage"), async (req, res) => {
             {
                 $set: {
                     fullname: req.body.name,
+                    username: req.body.username,
                     bio: req.body.bio,
                     gender: req.body.gender
                 }
