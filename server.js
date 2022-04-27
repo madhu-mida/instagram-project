@@ -35,6 +35,10 @@ app.use("/user", UserRouter)
 const PostRouter = require("./controllers/post");
 app.use("/post", PostRouter)
 
+app.get("/", (req, res) => {
+    res.redirect("/user/login")
+})
+
 app.get("/profile", (req, res) => {
     console.log(req.session.user)
     const userId = req.session.userId;
