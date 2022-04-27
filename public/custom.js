@@ -12,7 +12,24 @@ $(document).ready(function () {
             data: form.serialize()
         }).done(function (data) {
             // Optionally alert the user of success here...
-            console.log(data);
+            console.log(data.comment);
+            // let commentsDivArr = [];
+            // for(var comm of data.comment){
+            //     commentsDivArr.push();
+            // }
+            let comm = data.comment[data.comment.length - 1]
+            let newCommentSection = `<div class="each-comment">
+                <h6>
+                    ${comm.user.username}:<p>
+                            ${comm.comment}
+                        </p>
+                </h6>
+
+            </div>`
+            console.log("Section ID :: ", `#comm-${data._id.toString()}`);
+            $(`#comm-${data._id.toString()}`).append(newCommentSection);
+            $('.comment-box').val('');
+
         }).fail(function (data) {
             // Optionally alert the user of an error here...
         });

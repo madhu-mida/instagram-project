@@ -13,6 +13,11 @@
     flex-direction: column;
 }
 
+#body-edit-profile {
+    background-color: #262222;
+    color: white;
+}
+
 .wrapper {
     display: flex;
     flex-grow: 1;
@@ -228,4 +233,18 @@
 .created-at-post {
     font-size: 10px;
     font-style: italic;
+}
+
+.modal-image-size {
+    width: 100%;
+}
+
+.each-comment {
+    display: flex;
+    font-size: 20px;
+}
+
+.all-comments {
+    height: 180px;
+    overflow-y: auto;
 }

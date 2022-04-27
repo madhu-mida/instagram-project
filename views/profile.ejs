@@ -64,33 +64,36 @@
 
                         <div class="post-content">
                             <div class="container profile-container">
-                                <div class="row row-cols-3 profile-row">
+                                <div class="row m-0 row-cols-3 profile-row">
                                     <% allpost.forEach(post=> { %>
-                                        <div class="col">
-                                            <div class="card border-dark index-card post-card">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#myModal">
+                                        <div class="col p-0">
+                                            <div class="card border-secondary rounded-0 index-card post-card">
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="<%= `#modal-${post._id}` %>">
                                                     <img class=" card-img-top post-card-img"
                                                         src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
                                                         style="width:100%">
-                                                    <h5>
+                                                    <div class="card-footer">
                                                         <%=post.caption%>
-                                                    </h5>
+
+                                                    </div>
+
                                                 </a>
 
 
                                                 <!-- The Modal -->
-                                                <div class="modal fade" id="myModal">
+                                                <div class="modal fade" id="<%= `modal-${post._id}` %>">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
 
                                                             <!-- Modal Header -->
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title"><img
+                                                                <h4 class="modal-title modal-image-size"><img
                                                                         class=" card-img-top post-card-img"
                                                                         src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
                                                                         style="width:100%"></h4>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"></button>
+                                                                <!-- <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"></button> -->
                                                             </div>
 
                                                             <!-- Modal body -->
@@ -104,6 +107,11 @@
 
                                                             <!-- Modal footer -->
                                                             <div class="modal-footer">
+                                                                <form action="/post/delete?_method=DELETE"
+                                                                    method="post">
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger">Delete</button>
+                                                                </form>
                                                                 <button type="button" class="btn btn-danger"
                                                                     data-bs-dismiss="modal">Close</button>
                                                             </div>

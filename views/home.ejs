@@ -36,19 +36,29 @@
                                                 </span>
                                                 <!-- <i class="fas fa-save"></i> -->
                                         </h5>
-                                        <div class="all-comments">
-                                            <h3>
-                                                <%=post.comment%>
-                                            </h3>
+                                        <div class="all-comments" id="<%= `comm-${post._id}` %>">
+                                            <% (post.comment).forEach(element=> { %>
+                                                <div class="each-comment">
+                                                    <h6>
+                                                        <%=element.user.username%>:<p>
+                                                                <%= element.comment%>
+                                                            </p>
+                                                    </h6>
+
+                                                </div>
+                                                <% }) %>
+
+                                        </div>
+                                        <div class="created-at-post">
                                             <h7 class="created-at-post">
                                                 <%= post.createdAt.toDateString() %>
                                             </h7>
                                         </div>
                                         <form action="/user/comment" class="send-form" method="post">
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Comment"
-                                                    aria-label="Comment" aria-describedby="button-addon2"
-                                                    name="comment">
+                                                <input type="text" class="form-control comment-box"
+                                                    placeholder="Comment" aria-label="Comment"
+                                                    aria-describedby="button-addon2" name="comment">
                                                 <input type="hidden" name="postid" value="<%=post._id%>">
                                                 <button class="btn btn-outline-secondary send-button" type="submit"
                                                     id="button-addon2">Send</button>

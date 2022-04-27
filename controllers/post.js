@@ -40,4 +40,12 @@ router.post("/createpost", upload.single('image'), async (req, res) => {
     res.redirect("/profile")
 })
 
+router.delete("/delete", (req, res) => {
+    let userId = req.session.userId;
+    Post.findOneAndDelete({ userId }, (err, deletedPost) => {
+        if (err) console.log(err);
+        res.redirect("/profile")
+    })
+})
+
 module.exports = router;

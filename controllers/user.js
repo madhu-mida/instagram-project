@@ -56,8 +56,27 @@ router.get("/logout", (req, res) => {
 })
 
 router.get("/edit", (req, res) => {
+    console.log(req.params.id)
     res.render("editprofile.ejs", { user: req.session.user })
 })
+
+router.put("/edit", async (req, res) => {
+    const userId = req.session.userId;
+    let result = await User.findOneAndUpdate(
+        { _id: userId },
+        {
+            $set: {
+                name: req.body.fullname,
+                bio: req.body.bio,
+                gender: req.body.gender
+            }
+        },
+        { new: true }
+    )
+    console.log("Result", result)
+    res.redirect("/profile")
+})
+
 
 router.get("/home", (req, res) => {
     const userId = req.session.userId;
