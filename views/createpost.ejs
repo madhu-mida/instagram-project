@@ -3,7 +3,7 @@
 
 <%- include("partials/head.ejs") %>
 
-    <body>
+    <body id="body-create-post">
         <%- include("partials/headercontent.ejs") %>
             <div class="container mt-3">
                 <h2>Create Your Post</h2>
@@ -18,10 +18,10 @@
                         <input type="text" class="form-control" name="caption">
                     </div>
 
-                    <button type="submit" class="btn btn-primary mb-3">Create Post</button>
+                    <button type="submit" class="btn btn-primary mb-3 button-custom">Create Post</button>
                 </form>
                 <form action="/profile">
-                    <input type="submit" class="btn btn-primary mb-3" value="Cancel">
+                    <input type="submit" class="btn btn-primary mb-3 button-custom" value="Cancel">
                 </form>
             </div>
     </body>

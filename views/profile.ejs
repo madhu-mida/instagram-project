@@ -70,20 +70,26 @@
                                             <div class="card border-secondary rounded-0 index-card post-card">
                                                 <a href="#" data-bs-toggle="modal"
                                                     data-bs-target="<%= `#modal-${post._id}` %>">
-                                                    <img class=" card-img-top post-card-img"
-                                                        src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
-                                                        style="width:100%">
-                                                    <div class="card-footer">
-                                                        <%=post.caption%>
+                                                    <% if(post.image && post.image.data){ %>
+                                                        <img class=" card-img-top post-card-img" src="data:image/<%=post.image.contentType%>;base64,
+                                                        <%=post.image.data.toString('base64')%>" style="width:100%">
+                                                        <% } else { %>
+                                                            <img class=" card-img-top post-card-img"
+                                                                src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                                                                style="width:100%">
+                                                            <% } %>
 
-                                                    </div>
+                                                                <div class="card-footer">
+                                                                    <%=post.caption%>
+
+                                                                </div>
 
                                                 </a>
 
 
                                                 <!-- The Modal -->
-                                                <div class="modal fade" id="<%= `modal-${post._id}` %>">
-                                                    <div class="modal-dialog">
+                                                <div class="modal fade " id="<%= `modal-${post._id}` %>">
+                                                    <div class="modal-dialog  modal-dialog-centered modal-lg">
                                                         <div class="modal-content">
 
                                                             <!-- Modal Header -->
@@ -101,8 +107,22 @@
                                                                 <p>
                                                                     <%= post.caption %>
                                                                 </p>
-                                                                <h5>Likes</h5>
-                                                                <h5>Comments</h5>
+                                                                <h5>Likes: <%= post.like %>
+                                                                </h5>
+                                                                <div class="all-comments">
+                                                                    <% (post.comment).forEach(element=> { %>
+                                                                        <div class="each-comment">
+                                                                            <h6>
+                                                                                <%=element.user.username%>:<p>
+                                                                                        <%= element.comment%>
+                                                                                    </p>
+                                                                            </h6>
+
+                                                                        </div>
+                                                                        <% }) %>
+
+                                                                </div>
+
                                                             </div>
 
                                                             <!-- Modal footer -->

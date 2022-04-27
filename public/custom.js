@@ -43,6 +43,7 @@ $(document).ready(function () {
         var like = $(this).attr('value');
         let shouldDislike = $(this).attr('class').includes('isLiked')
         console.log('shouldDislike :: ', shouldDislike);
+        let selfEl = $(this)
         $.ajax({
             type: 'post',
             url: '/user/like',
@@ -51,18 +52,14 @@ $(document).ready(function () {
             // Optionally alert the user of success here...
             console.log(data);
             if (data && data._id) {
-                //let $likeHeartButton = $(".like-heart-button");
-                let $likeHeartButton = $(this).children(".like-heart-button");
-                $($likeHeartButton).toggleClass("fa-heart")
-                $($likeHeartButton).toggleClass("fa-heart-o")
-                // if (shouldDislike) {
-                //     $(this).html(`<i class="fa fa-heart-o like-heart-button"
-                //     aria-hidden="true"></i>`);
-                // } else {
-                //     $(this).html(`<i class="fa fa-heart like-heart-button"
-                //     aria-hidden="true"></i>`);
-                // }
-                $(this).toggleClass("isLiked")
+                if (shouldDislike) {
+                    $(selfEl).html(`<i class="fa fa-heart-o like-heart-button"
+                    aria-hidden="true"></i>`);
+                } else {
+                    $(selfEl).html(`<i class="fa fa-heart like-heart-button"
+                    aria-hidden="true"></i>`);
+                }
+                $(selfEl).toggleClass("isLiked")
             }
 
         }).fail(function (data) {

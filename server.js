@@ -45,7 +45,6 @@ app.get("/profile", (req, res) => {
     console.log("IIII", userId)
     console.log(typeof userId)
     Post.find({ userId }, (err, allPost) => {
-        console.log("ALLPOST", allPost)
         if (err) {
             console.log(err)
         }

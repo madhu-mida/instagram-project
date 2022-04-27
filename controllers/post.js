@@ -3,13 +3,16 @@ const Post = require("../models/post")
 var fs = require('fs');
 var path = require('path');
 const router = express.Router();
+var bodyParser = require('body-parser')
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads')
+        cb(null, '/tmp')
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+        console.log(file);
+        cb(null, file.originalname)
     }
 });
 
@@ -21,21 +24,29 @@ router.get("/createpost", (req, res) => {
     res.render("createpost.ejs")
 })
 
-router.post("/createpost", upload.single('image'), async (req, res) => {
-    console.log(req.body)
-    // console.log(req.file.filename)
+router.post("/createpost", upload.single("image"), async (req, res) => {
+    //console.log("req.body", req.body)
+    //console.log("req.files", req.file)
     const newPost = {
         userId: req.session.userId,
         caption: req.body.caption,
         like: 0,
         comment: [],
-        createdAt: new Date()
+        createdAt: new Date(),
+        image: {}
     }
-    // a.img.data = fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename);
-    // a.img.contentType = 'image/png';
+    var imgData = fs.readFileSync(path.join('/tmp/' + req.file.filename));
+    //console.log("imgData base64 :: ", base64data);
+    console.log("req.file.filename :: ", req.file.filename, req.body.caption);
+    newPost.image.data = fs.readFileSync(path.join('/tmp/' + req.file.filename));
+    newPost.image.contentType = req.file.mimetype;
     Post.create(newPost, (err, createdPost) => {
-        console.log(newPost)
-        console.log(createdPost)
+        fs.unlink(req.file.path, (err) => {
+            if (err) {
+                console.error("Error while removing file", err)
+            }
+            //file removed
+        })
     })
     res.redirect("/profile")
 })
