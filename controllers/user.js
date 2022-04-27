@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
                 console.log(err)
             }
 
-            res.redirect("/user/home")
+            res.redirect("/profile")
         });
 
         // res.render("profile.ejs", { loginDetails: user })
