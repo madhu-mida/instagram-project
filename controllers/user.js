@@ -12,7 +12,7 @@ var storage = multer.diskStorage({
         cb(null, '/tmp')
     },
     filename: (req, file, cb) => {
-        console.log(file);
+        // console.log(file);
         cb(null, file.originalname)
     }
 });
@@ -55,11 +55,19 @@ router.post("/login", async (req, res) => {
         req.session.email = email;
         req.session.userId = user._id;
         req.session.user = user;
+        console.log("LOGIN USERRER: : ", req.session.user)
+        req.session.save((err) => {
+            if (err) {
+                console.log(err)
+            }
 
-        res.redirect("/user/home")
+            res.redirect("/user/home")
+        });
+
         // res.render("profile.ejs", { loginDetails: user })
-
     })
+
+
 })
 
 router.get("/logout", (req, res) => {
@@ -75,7 +83,7 @@ router.get("/edit", (req, res) => {
 
 router.put("/edit", upload.single("profileimage"), async (req, res) => {
     const userId = req.session.userId;
-    console.log("req.file :: ", req.file);
+    // console.log("req.file :: ", req.file);
     if (req.file) {
         let profileImageData = fs.readFileSync('/tmp/' + req.file.filename);
         let profileContentType = req.file.mimetype;
@@ -87,7 +95,7 @@ router.put("/edit", upload.single("profileimage"), async (req, res) => {
             { _id: userId },
             {
                 $set: {
-                    name: req.body.fullname,
+                    fullname: req.body.name,
                     bio: req.body.bio,
                     gender: req.body.gender,
                     image: profileImage
@@ -95,32 +103,49 @@ router.put("/edit", upload.single("profileimage"), async (req, res) => {
             },
             { new: true }
         )
+        req.session.user = result;
     } else {
+        console.log("USERID:::", req.session.userId)
+        console.log("REQUESTING: ", req.body)
         let result = await User.findOneAndUpdate(
+
             { _id: userId },
             {
                 $set: {
-                    name: req.body.fullname,
+                    fullname: req.body.name,
                     bio: req.body.bio,
                     gender: req.body.gender
                 }
             },
             { new: true }
         )
+        console.log("Result", result)
+        req.session.user = result;
     }
     // console.log("Result", result)
-    res.redirect("/profile")
+
+    req.session.save((err) => {
+        if (err) {
+            console.log(err)
+        }
+
+        res.redirect("/profile")
+    });
+
+
 })
 
 
 router.get("/home", (req, res) => {
     const userId = req.session.userId;
+    console.log("USERID:", userId)
     console.log(req.session.user)
 
     Post.find({ 'userId': { $ne: userId } }, (err, allPost) => {
         if (err) {
             console.log(err)
         }
+        console.log("USERRER: : ", req.session.user)
         res.render("home.ejs", { allpost: allPost, user: req.session.user })
     })
 

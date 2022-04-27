@@ -332,3 +332,27 @@
 .button-custom {
     background-color: #0d6efde6;
 }
+
+.comment-content {
+    font-size: 15px;
+}
+
+.comment-user {
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.caption-content {
+    /* text-align: center; */
+    margin-top: 10px;;
+    font-size: 20px;
+}
+
+#heart {
+    display: flex;
+}
+
+.like-save {
+    display: flex;
+    gap: 18px
+}

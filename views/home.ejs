@@ -23,51 +23,66 @@
                                             <% } %>
                                                 <div class="card-body post-card-body">
                                                     <h5>
-
-                                                        <span id=heart>
-                                                            <a class="like-heart <%= user.likedPost.includes(post._id.toString()) ? `isLiked` : `` %>"
-                                                                value="<%=post._id%>">
-
-
-                                                                <% if(user.likedPost.includes(post._id.toString())){ %>
-                                                                    <i class="fa fa-heart like-heart-button"
-                                                                        aria-hidden="true"></i>
-                                                                    <% } else { %>
-                                                                        <i class="fa fa-heart-o like-heart-button"
-                                                                            aria-hidden="true"></i>
-                                                                        <% } %>
-                                                            </a>
-
-                                                        </span>
+                                                        <div class="like-save">
+                                                            <div class="span-like">
+                                                                <span id="heart">
+                                                                    <a class="like-heart <%= user.likedPost.includes(post._id.toString()) ? `isLiked` : `` %>"
+                                                                        value="<%=post._id%>">
 
 
-                                                        <span id="save">
-                                                            <a class="save-bookmark <%= user.savedPost.includes(post._id.toString()) ? `isSaved` : `` %>"
-                                                                value="<%=post._id%>">
+                                                                        <% if(user.likedPost.includes(post._id.toString())){
+                                                                            %>
+                                                                            <i class="fa fa-heart like-heart-button"
+                                                                                aria-hidden="true"></i>
+                                                                            <% } else { %>
+                                                                                <i class="fa fa-heart-o like-heart-button"
+                                                                                    aria-hidden="true"></i>
+                                                                                <% } %>
+                                                                    </a>&ensp;
+                                                                    <p id="like-number">
+                                                                        <%= post.like %> likes
+                                                                    </p>
+                                                                </span>
+
+                                                            </div>
+                                                            <div class="span-save">
+                                                                <span id="save">
+                                                                    <a class="save-bookmark <%= user.savedPost.includes(post._id.toString()) ? `isSaved` : `` %>"
+                                                                        value="<%=post._id%>">
 
 
-                                                                <% if(user.savedPost.includes(post._id.toString())){ %>
-                                                                    <i class="fa fa-solid fa-bookmark save-bookmark-button"
-                                                                        aria-hidden="true"></i>
-                                                                    <% } else { %>
-                                                                        <i class="fa fa-regular fa-bookmark save-bookmark-button"
-                                                                            aria-hidden="true"></i>
-                                                                        <% } %>
-                                                            </a>
+                                                                        <% if(user.savedPost.includes(post._id.toString())){
+                                                                            %>
+                                                                            <i class="fa fa-solid fa-bookmark save-bookmark-button"
+                                                                                aria-hidden="true"></i>
+                                                                            <% } else { %>
+                                                                                <i class="fa fa-regular fa-bookmark save-bookmark-button"
+                                                                                    aria-hidden="true"></i>
+                                                                                <% } %>
+                                                                    </a>
 
-                                                        </span> <br />
+                                                                </span>
+                                                            </div>
 
-                                                        <%=post.caption%>
-                                                            <!-- <i class="fas fa-save"></i> -->
+                                                            <br />
+                                                        </div>
+
+
+                                                        <p class="caption-content">
+                                                            <%=post.caption%>
+                                                        </p>
+
+                                                        <!-- <i class="fas fa-save"></i> -->
                                                     </h5>
                                                     <div class="all-comments" id="<%= `comm-${post._id}` %>">
                                                         <% (post.comment).forEach(element=> { %>
                                                             <div class="each-comment">
-                                                                <h6>
-                                                                    <%=element.user.username%>:<p>
+                                                                <p class="comment-user">
+                                                                    <%=element.user.username%>:&ensp;
+                                                                        <p class="comment-content">
                                                                             <%= element.comment%>
                                                                         </p>
-                                                                </h6>
+                                                                </p>
 
                                                             </div>
                                                             <% }) %>

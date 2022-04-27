@@ -25,6 +25,7 @@ app.use(
         store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
         saveUninitialized: true,
         resave: false,
+        // cookie: { secure: false }
     })
 )
 
@@ -40,15 +41,15 @@ app.get("/", (req, res) => {
 })
 
 app.get("/profile", async (req, res) => {
-    console.log(req.session.user)
+    // console.log(req.session.user)
     const userId = req.session.userId;
-    console.log("IIII", userId)
-    console.log(typeof userId)
+    // console.log("IIII", userId)
+    // console.log(typeof userId)
     const records = await Post.find({ '_id': { $in: req.session.user.savedPost } });
-    console.log(records)
+    // console.log(records)
     Post.find({ userId }, (err, allPost) => {
         if (err) {
-            console.log(err)
+            // console.log(err)
         }
         res.render("profile.ejs", { allpost: allPost, user: req.session.user, savedPost: records })
     })

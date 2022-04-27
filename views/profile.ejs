@@ -99,34 +99,43 @@
 
                                                             <!-- Modal Header -->
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title modal-image-size"><img
-                                                                        class=" card-img-top post-card-img"
-                                                                        src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
-                                                                        style="width:100%"></h4>
+                                                                <h4 class="modal-title modal-image-size">
+                                                                    <% if(post.image && post.image.data){ %>
+                                                                        <img class=" card-img-top post-card-img" src="data:image/<%=post.image.contentType%>;base64,
+                                                                        <%=post.image.data.toString('base64')%>"
+                                                                            style="width:100%">
+                                                                        <% } else { %>
+                                                                            <img class=" card-img-top post-card-img"
+                                                                                src="https://images.unsplash.com/photo-1535890696255-dd5bcd79e6df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                                                                                style="width:100%">
+                                                                            <% } %>
+                                                                </h4>
                                                                 <!-- <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal"></button> -->
                                                             </div>
 
                                                             <!-- Modal body -->
                                                             <div class="modal-body">
-                                                                <p>
+                                                                <p class="caption-content">
                                                                     <%= post.caption %>
                                                                 </p>
-                                                                <h5>Likes: <%= post.like %>
-                                                                </h5>
-                                                                <div class="all-comments">
-                                                                    <% (post.comment).forEach(element=> { %>
-                                                                        <div class="each-comment">
-                                                                            <h6>
-                                                                                <%=element.user.username%>:<p>
-                                                                                        <%= element.comment%>
-                                                                                    </p>
-                                                                            </h6>
+                                                                Likes:
+                                                                <%= post.like %>
 
-                                                                        </div>
-                                                                        <% }) %>
+                                                                    <div class="all-comments mt-3">
+                                                                        <% (post.comment).forEach(element=> { %>
+                                                                            <div class="each-comment">
+                                                                                <p class="comment-user">
+                                                                                    <%=element.user.username%>:&ensp;
+                                                                                        <p class="comment-content">
+                                                                                            <%= element.comment%>
+                                                                                        </p>
+                                                                                </p>
 
-                                                                </div>
+                                                                            </div>
+                                                                            <% }) %>
+
+                                                                    </div>
 
                                                             </div>
 

@@ -36,6 +36,7 @@ $(document).ready(function () {
     });
 
     let $likeButton = $(".like-heart");
+    let $likeNumber = $("#like-number");
 
     $likeButton.on("click", function (event) {
         event.preventDefault(); // Prevent the form from submitting via the browser
@@ -60,6 +61,7 @@ $(document).ready(function () {
                     aria-hidden="true"></i>`);
                 }
                 $(selfEl).toggleClass("isLiked")
+                $likeNumber.html(`${data.like} likes`)
             }
 
         }).fail(function (data) {
