@@ -37,13 +37,13 @@ https://igram-clone-ga.herokuapp.com/
 ### Routes:
 
 #### Get:
-  - /user/login - Goes to Login Page
-  - /user/signup - Goes to Sign-Up Page
+  - /user/login - Renders Login Page
+  - /user/signup - Renders Sign-Up Page
   - /user/logout - Logout the session
-  - /user/home - Goes to Home Page
-  - /profile - Goes to Login Page
-  - /user/edit - Goes to Edit Profile Page
-  - /post/createpost - Goes to create post page
+  - /user/home - Renders Home Page
+  - /profile - Renders Profile Page
+  - /user/edit - Renders Edit Profile Page
+  - /post/createpost - Renders create post page
 
 #### Post:
   - /user/login - Login to you Account
