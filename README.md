@@ -21,6 +21,7 @@ https://igram-clone-ga.herokuapp.com/
 ### Features:
   - Signup to create an account in instagram
   - Login to get into the instagram Profile page
+  - Has Logout functionality
   - Displays post created 
   - Displays saved post
   - Displays other user's post in home feed
