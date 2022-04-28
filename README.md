@@ -33,6 +33,28 @@ https://igram-clone-ga.herokuapp.com/
   - Has a Sticky Header
   - Has the ability to view and edit user profile
 
+
+### Routes:
+
+#### Get:
+  - /user/login - Goes to Login Page
+  - /user/signup - Goes to Sign-Up Page
+  - /user/logout - Logout the session
+  - /user/home - Goes to Home Page
+  - /profile - Goes to Login Page
+  - /user/edit - Goes to Edit Profile Page
+  - /post/createpost - Goes to create post page
+
+#### Post:
+  - /user/login - Login to you Account
+  - /user/signup - Create a new Account
+  - /user/logout - Logout the session
+  - /user/edit - Edit Profile Data
+  - /post/createpost - Create Post
+  - /user/like - Add post to favorites
+  - /user/comment - Add comment to a post
+  - /user/save - Add post to saved posts
+
 ### Screenshots:
 
 ##### Login Page
@@ -66,6 +88,23 @@ https://igram-clone-ga.herokuapp.com/
 ##### Show-Post with Delete Functionality
 
 ![Screenshot](Igram-Show-Post.png)
+
+##### Login Page
+
+![Screenshot](I-Login.png)
+
+##### Signup Page
+
+![Screenshot](I-Sign-Up.png)
+
+##### Landing Page
+
+![Screenshot](I-Landing.png)
+
+##### Home Page
+
+![Screenshot](I-Home.png)
+
 
 ### Stretch Goals/Future Goals: 
    - Search functionality to look for other user profiles
