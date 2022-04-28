@@ -25,8 +25,10 @@ https://igram-clone-ga.herokuapp.com/
   - Displays saved post
   - Displays other user's post in home feed
   - Has the ability to create, view, edit and delete post
-  - Add and manage favorite posts in mongoDB
-  - Add and manage saved posts in mongoDB
+  - Add and manage favorite posts
+  - Add and manage saved posts
+  - Has the ability to add comments on other user post
+  - Displays Comments on post added by other user profiles
   - Has a Sticky Header
   - Has the ability to view and edit user profile
 
@@ -34,7 +36,7 @@ https://igram-clone-ga.herokuapp.com/
 
 ##### Login Page
 
-![Screenshot](Igram-login.png)
+![Screenshot](Igram-Login.png)
 
 ##### Signup Page
 
