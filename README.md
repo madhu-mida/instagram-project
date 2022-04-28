@@ -49,7 +49,7 @@ https://igram-clone-ga.herokuapp.com/
 
 ##### Profile-Post Page
 
-![Screenshot](Igram-Profile-Post.png)
+![Screenshot](Igram-Profile-P.png)
 
 ##### Profile-Saved Page
 
